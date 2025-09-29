@@ -61,7 +61,7 @@ function Header() {
                 </Unauthenticated>
 
                 <Authenticated>
-                    <Button variant="ghost">
+                    <Button variant="ghost" asChild>
                         <UserButton
                             appearance={{
                                 elements: {
