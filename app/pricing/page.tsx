@@ -4,7 +4,6 @@ import { PricingTable } from '@clerk/nextjs'
 const Pricing = () => {
   return (
     <div>
-        PricingPage 
         <PricingTable newSubscriptionRedirectUrl='/dashboard' />
     </div>
   )
