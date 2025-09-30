@@ -3,7 +3,6 @@ import { httpAction } from "./_generated/server";
 import { Id } from "./_generated/dataModel";
 import { api, internal } from "./_generated/api";
 
-
 const http = httpRouter();
 
 export enum ApiPath {
@@ -68,16 +67,16 @@ http.route({
             // Set job status to failed when analysis fails (only if job was found)
             if (job) {
                 try {
-                await ctx.runMutation(api.scrapingJobs.failJob, {
-                    jobId: job._id,
-                    error:
-                    error instanceof Error
-                        ? error.message
-                        : "Unknown error occurred during analysis",
-                });
-                console.log(`Job ${job._id} marked as failed due to analysis error`);
+                    await ctx.runMutation(api.scrapingJobs.failJob, {
+                        jobId: job._id,
+                        error:
+                        error instanceof Error
+                            ? error.message
+                            : "Unknown error occurred during analysis",
+                    });
+                    console.log(`Job ${job._id} marked as failed due to analysis error`);
                 } catch (failError) {
-                console.error("Failed to update job status to failed:", failError);
+                    console.error("Failed to update job status to failed:", failError);
                 }
             }
 

@@ -13,6 +13,7 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as analysis from "../analysis.js";
 import type * as https from "../https.js";
 import type * as scrapingJobs from "../scrapingJobs.js";
 
@@ -25,6 +26,7 @@ import type * as scrapingJobs from "../scrapingJobs.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  analysis: typeof analysis;
   https: typeof https;
   scrapingJobs: typeof scrapingJobs;
 }>;
