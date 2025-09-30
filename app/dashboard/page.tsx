@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Sparkles, FileText, Plus, BarChart3, Loader2 } from 'lucide-react';
 import { Authenticated, AuthLoading } from 'convex/react';
 import { CountrySelector } from '@/components/CountrySelector';
+import startScraping from '@/actions/startScraping';
 
 const DashboardPage = () => {
     const [prompt, setPrompt] = useState('');
@@ -18,10 +19,22 @@ const DashboardPage = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (!prompt || isLoading) return;
+    
         setIsLoading(true);
-        router.push(`/dashboard/report/${prompt}`);
-        setIsLoading(false);
-    }
+        try {
+          const response = await startScraping(prompt, undefined, country);
+          if (response.ok) {
+            console.log(response.data);
+            const snapshotId = response.data.snapshot_id;
+            router.push(`/dashboard/report/${snapshotId}`);
+          } else {
+            console.error(response.error);
+          }
+        } finally {
+          setIsLoading(false);
+        }
+      };
     
     return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
